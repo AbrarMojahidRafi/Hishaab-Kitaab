@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hishaab Kitaab</title>
+    <!-- Tailwind CSS Connection -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <%- include('navbar.ejs') %>
+
+    <!-- Main Content -->
+    <h3 class="text-center text-2xl font-bold mt-10">All the Hishaabs</h3>
+
+<!-- User's Hishaabs Section -->
+<div class="container mx-auto px-4 py-8">
+    <h4 class="text-lg font-semibold mb-4">Your Hishaabs:</h4>
+    
+    <!-- <%= typeof(userAllHishaabs) %>
+    <%= userAllHishaabs.length %>  -->
+
+    <% if (Array.isArray(userAllHishaabs) || userAllHishaabs.length > 0) { %>
+      <% userAllHishaabs.forEach(hishaab => { %>
+        <% if (hishaab.hishaab_creator || String(hishaab.hishaab_creator) === String(user._id)) { %>
+          <div class="mb-4 p-4 bg-gray-100 rounded-lg flex justify-between items-center">
+            <div>
+              <p class="text-lg">
+                <span class="font-medium">Hishaab Name:</span> 
+                <%= hishaab.hishaabName %>
+              </p>
+            </div>
+            
+            <div class="flex space-x-2">
+              <!-- Edit Button -->
+              <a 
+                href="/hishaab/edit/<%= hishaab._id %>" 
+                class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+              >
+                Edit
+              </a>
+              
+              <!-- Delete Button (with a form for proper HTTP method) -->
+              <form 
+                action="/hishaab/delete/<%= hishaab._id %>" 
+                method="POST"
+                onsubmit="return confirm('Are you sure you want to delete this hishaab?');"
+              >
+                <button 
+                  type="submit"
+                  class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+                >
+                  Delete
+                </button>
+              </form>
+            </div>
+          </div>
+        <% } %>
+      <% }); %>
+    <% } else { %>
+      <p class="text-gray-500">No hishaabs found. Create your first hishaab!</p>
+    <% } %>
+</div>
+
+</body>
+</html>

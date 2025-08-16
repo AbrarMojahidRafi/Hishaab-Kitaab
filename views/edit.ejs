@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hishaab Kitaab: Edit your hishaab</title>
+    <!-- Tailwind CSS Connection -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <%- include('navbar') %>
+
+    <!-- Main Content -->
+    <div class="flex justify-left items-center ml-5">
+        <div class="w-1/2">
+            <div class="max-w-md mx-auto">
+                <h1 class="text-left text-2xl font-bold mt-10">Edit Hishaab</h1>
+                <form action="/hishaab/update/<%= hishaab_id %>" method="post">
+                    <!-- Hishaab Name Input -->
+                    <div class="mt-4 mb-4">
+                        <label for="hishaab-name" class="block text-gray-700 mb-2">Hishaab Name</label>
+                        <input 
+                            name="hishaab_name"
+                            id="hishaab-name"
+                            class="border-2 border-gray-300 w-full rounded-md p-2 focus:border-blue-500 focus:outline-none" 
+                            type="text" 
+                            value="<%= hishaab_id.hishaabName %>"
+                            placeholder="Enter Hishaab Name">
+                    </div>
+
+                    <!-- Task Description Textarea -->
+                    <div class="mb-4">
+                        <label for="task-description" class="block text-gray-700 mb-2">Task Details</label>
+                        <textarea 
+                            name="hishaab_description"
+                            id="task-description"
+                            class="border-2 border-gray-300 w-full rounded-md p-2 h-50 focus:border-blue-500 focus:outline-none" 
+                            placeholder="Describe your task details here..."><%= hishaab_id.hishaabDescription %></textarea>
+                    </div>
+
+                    <!-- Update Button -->
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition duration-200 mr-2">
+                        Update Hishaab
+                    </button>
+
+                    <!-- Cancel Button -->
+                    <a href="/homepage/<%= hishaab_id %>" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md transition duration-200 inline-block">
+                        Cancel
+                    </a>
+                </form>    
+            </div>
+        </div>
+    </div>
+</body>
+</html>
